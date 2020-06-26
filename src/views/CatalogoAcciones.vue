@@ -1,13 +1,14 @@
 <template>
   <v-container>
     <v-layout flex align-center justify-center>
-      <v-flex md8 style="height: 40em">
-        <v-card elevation="7" min-height="40em">
+      <v-flex md8>
+        <v-card>
           <v-card-title class="headline">
-            ARQUITECTURA
+            Catálogo de acciones
           </v-card-title>
+          <v-divider/>
           <v-card-text>
-            <organigrama style="height: 40em"/>
+            <TablaAcciones/>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -17,11 +18,12 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import Organigrama from "@/components/Organigrama.vue";
+  import TablaAcciones from "@/components/TablaAcciones.vue";
+  
   export default Vue.extend({
-      name: "Arquitectura",
+      name: "CatalogoAcciones",
       components: {
-          Organigrama
+          TablaAcciones
       }
   })
 </script>

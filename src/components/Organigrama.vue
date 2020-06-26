@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <organization-chart :datasource="ds" zoom :zoomin-limit="2" :zoomout-limit="0.5" @node-click="selectModule">
+  <div :style="`height: ${height}`">
+    <organization-chart :datasource="ds" zoom :zoomin-limit="2" :zoomout-limit="0.5" @node-click="selectModule" :style="`height: ${height}`">
       <template slot-scope="{ nodeData }">
         <v-layout flex align-center justify-center>
           <v-flex :style="`${nodeData.color ? 'border-radius: 8px;' : ''} box-shadow: 0 0 0 2pt ${nodeData.color ? nodeData.color : 'red'}; display: table; text-align: center`">
@@ -19,6 +19,9 @@
     import 'vue-organization-chart/dist/orgchart.css'
     export default Vue.extend({
         name: "Organigrama",
+        props: {
+            'height': { type: String }
+        },
         components: {
             OrganizationChart
         },
@@ -34,7 +37,11 @@
                                 { id: 'REGLAS', name: 'CATÁLOGO DE REGLAS', color: 'green' },
                                 { id: 'PROTOCOLOS', name: 'CATÁLOGO DE PROTOCOLOS', color: 'green', children:
                                   [
-                                      { id: 'EVENTOS', name: 'EVENTOS', color: 'green' }
+                                      { id: 'TRANSACCIONES', name: 'TRANSACCIONES', color: 'green', children:
+                                        [
+                                            { id: 'ACCIONES', name: 'ACCIONES', color: 'green' }
+                                        ]
+                                      }
                                   ]
                                 }
                             ]
@@ -49,9 +56,8 @@
             }
         },
         methods: {
-            selectModule(nodo: { id: string; name: string }) {
-                const useless = ['GERENCIAL', 'CONSULTA', 'INDICADORES'];
-                if (useless.includes(nodo.id)) return;
+            selectModule(nodo: { id: string; name: string; color?: string }) {
+                if (!nodo.color) return;
                 this.changeRoute(`/modulos/${nodo.id.toLowerCase()}`)
             },
             changeRoute(desiredRoute: string) {
@@ -65,7 +71,7 @@
 </script>
 
 <style scoped>
-  .orgchart.lines.topLine {
-    border-top: 2px solid black
+  .orgchart-container {
+    height: 40em;
   }
 </style>

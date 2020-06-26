@@ -35,13 +35,18 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/modulos/parametros',
-    name: 'catalogocompras',
+    name: 'parametros',
     component: () => import('@/views/MantenimientoParametros.vue')
   },
   {
     path: '/modulos/reglas',
     name: 'catalogoreglas',
-    component: () => import('@/views/CatalogoReglas.vue')
+    component: () => import('@/views/CatalogoReglas.vue'),
+  },
+  {
+    path: '/modulos/acciones',
+    name: 'catalogoacciones',
+    component: () => import('@/views/CatalogoAcciones.vue')
   }
 ]
 
