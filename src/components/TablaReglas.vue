@@ -85,6 +85,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
+  import {DefaultComputed} from "vue/types/options";
   
   type regla = { codigo: string; parametro: string; valor: string; operador: string; verdadero: string; falso: string; descripcion: string; editable?: boolean };
   export default Vue.extend({
@@ -125,9 +126,11 @@
           }
       },
       computed: {
-          formTitle() {
-              return this.editedIndex === -1 ? 'Nueva regla' : 'Editar regla'
-          },
+          formTitle: {
+              get(): DefaultComputed[string] {
+                  return this.editedIndex === -1 ? 'Nueva acción' : 'Editar acción'
+              }
+          }
       },
       methods: {
           close () {

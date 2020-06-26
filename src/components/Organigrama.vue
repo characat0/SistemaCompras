@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
     import Vue from 'vue'
     import OrganizationChart from 'vue-organization-chart'
     
@@ -56,11 +56,11 @@
             }
         },
         methods: {
-            selectModule(nodo: { id: string; name: string; color?: string }) {
+            selectModule(nodo) {
                 if (!nodo.color) return;
                 this.changeRoute(`/modulos/${nodo.id.toLowerCase()}`)
             },
-            changeRoute(desiredRoute: string) {
+            changeRoute(desiredRoute) {
                 console.log(this.$route.fullPath, desiredRoute);
                 if (this.$route.fullPath !== desiredRoute) {
                     this.$router.push(desiredRoute);

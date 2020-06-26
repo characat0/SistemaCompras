@@ -2,7 +2,7 @@ import {combine} from "@/utils/combination";
 import {PARAMETROS} from "@/config";
 export const PRODUCT_ROWS = 'PRODUCT_ROWS';
 
-export let productRows = localStorage.getItem(PRODUCT_ROWS);
+export let productRows: string | {[p: string]: any}|null = localStorage.getItem(PRODUCT_ROWS);
 if (productRows) {
     productRows = JSON.parse(productRows);
 } else {

@@ -85,12 +85,13 @@
 
 <script lang="ts">
   import Vue from 'vue';
+  import {DefaultComputed} from "vue/types/options";
   
   type accion = {codigo:string; descripcion: string; tipo: 'Método' | 'Operación' }
-  
+  type column = { text: string; value: string; align?: string; sortable?: boolean, divider?: boolean }
   export default Vue.extend({
       name: "TablaAcciones",
-      data() {
+      data(): {columns: column[]; elements: accion[]; dialog: boolean; editedIndex: number; editedItem: accion; defaultItem: accion} {
           return {
               columns: [
                   { text: 'Codigo', value: 'codigo', align: 'center', sortable: false, divider: true },
@@ -114,9 +115,12 @@
           }
       },
       computed: {
-          formTitle() {
-              return this.editedIndex === -1 ? 'Nueva acción' : 'Editar acción'
-          },
+          formTitle: {
+              get(): DefaultComputed[string] {
+                  return this.editedIndex === -1 ? 'Nueva acción' : 'Editar acción'
+
+              }
+          }
       },
       methods: {
           close () {
