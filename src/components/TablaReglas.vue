@@ -141,6 +141,9 @@
               })
           },
           save () {
+              for (const v of Object.values(this.editedItem)) {
+                  if (!v) return;
+              }
               if (this.editedIndex > -1) {
                   Object.assign(this.elements[this.editedIndex], this.editedItem)
               } else {
