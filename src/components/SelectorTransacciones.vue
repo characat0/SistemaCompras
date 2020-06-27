@@ -201,7 +201,12 @@
               const acts: {codigo:string;descripcion:string;tipo:string;secuencia:number}[] = [];
               for (let i = 0; i < acciones.length; i++) {
                   const a = this.a[acciones[i]];
-                  acts.push({codigo: acciones[i], descripcion: a.descripcion, tipo: a.tipo, secuencia: i+1})
+                  if (!a) {
+                      acciones.splice(i, 1);
+                      i--;
+                  } else {
+                      acts.push({codigo: acciones[i], descripcion: a.descripcion, tipo: a.tipo, secuencia: i+1})
+                  }
               }
               return acts;
           },
