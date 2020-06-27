@@ -1,7 +1,9 @@
 <template>
   <v-app-bar dense app :color="color">
     <v-app-bar-nav-icon @click="customonclick"></v-app-bar-nav-icon>
-  
+    <v-btn @click="changeRoute('/')" depressed :color="color">
+      HOME
+    </v-btn>
     <v-btn v-if="!logged" @click="changeRoute('/login')" depressed :color="color">
       Login
     </v-btn>

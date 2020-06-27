@@ -39,8 +39,9 @@
             </ul>
           </ol>
           <p>
-          
+            A continuación, tenemos un botón para devolver el prototipo a su estado original
           </p>
+          <v-btn color="error" block @click="reset">REINICIAR PROTOTIPO</v-btn>
         </v-container>
       </v-col>
       <v-col
@@ -74,8 +75,14 @@
 
 <script lang="ts">
   import Vue from 'vue';
-
   export default Vue.extend({
       name: 'Home',
+      methods: {
+          reset() {
+              localStorage.clear();
+              alert("Prototipo reiniciado correctamente!");
+              document.location.reload();
+          }
+      }
   })
 </script>
