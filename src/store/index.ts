@@ -4,7 +4,8 @@ import {cuantias, P_CUANTIAS} from "@/store/parametros";
 import {REGLAS, reglasNegocio} from "@/store/reglas";
 import {PRODUCT_ROWS, productRows} from "@/store/productos";
 import {accion, acciones, ACCIONES} from "@/store/acciones";
-import {transaccion, transacciones, TRANSACCIONES } from "@/store/transacciones";
+import {transacciones, TRANSACCIONES } from "@/store/transacciones";
+import {ACCION_TRANSACCION, accionTransaccion} from "@/store/accionTransaccion";
 
 const LOGGED = 'LOGGED', NACIONALIDAD = 'NACIONALIDAD';
 
@@ -19,7 +20,8 @@ export default new Vuex.Store({
     nacionalidad: localStorage.getItem(NACIONALIDAD),
     reglasNegocio,
     acciones,
-    transacciones
+    transacciones,
+    accionTransaccion
   },
   mutations: {
     logged(state, value) {
@@ -54,12 +56,15 @@ export default new Vuex.Store({
       localStorage.setItem(ACCIONES, JSON.stringify(acciones));
     },
     changeTransacciones(state, value: { [p:string]: { codigo: string; descripcion: string }}) {
-      const transacciones: {[p: string]: transaccion} = {};
 /*      for (const e of value) {
         transacciones[e.codigo] = { descripcion: e.descripcion }
       }*/
       state.transacciones = value;
       localStorage.setItem(TRANSACCIONES, JSON.stringify(value));
+    },
+    changeAccionTransaccion(state, value) {
+      state.accionTransaccion = value;
+      localStorage.setItem(ACCION_TRANSACCION, JSON.stringify(value));
     }
   },
   actions: {
@@ -74,6 +79,7 @@ export default new Vuex.Store({
     nacionalidad: state => state.nacionalidad,
     reglas: state => state.reglasNegocio,
     acciones: state => state.acciones,
-    transacciones: state => state.transacciones
+    transacciones: state => state.transacciones,
+    accionTransaccion: state => state.accionTransaccion
   }
 })
