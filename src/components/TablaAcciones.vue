@@ -23,34 +23,21 @@
           
             <v-card-text>
               <v-container>
+
                 <v-row>
                   <v-col cols="12" sm="12" md="12">
+                    <v-text-field v-model="editedItem.descripcion" label="Descripción" :rules="[v=>!!v||'Campo requerido']"></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="6">
                     <v-text-field
                             v-model="editedItem.codigo"
-                            label="Código de regla"
-                            :rules="[v => !!v && v.match(/^[MET][OP][0-9]{1:2}/) && parseInt(v.substr(1)) > 0 || 'Código no válido']"
-                            hint="RXX"
+                            label="Código de acción"
+                            :rules="[v => !!v && !!v.match(/^(MET|OP)_[0-9]{1,2}$/) || 'Código no válido']"
+                            hint="MET_XX o OP_XX"
                     ></v-text-field>
                   </v-col>
-                </v-row>
-                <v-row>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.parametro" label="Nombre del parámetro" :rules="[v=>!!v||'Campo requerido']"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.operador" label="Operador lógico" :rules="[v=>!!v||'Campo requerido']"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.valor" label="Valor del parámetro" :rules="[v=>!!v||'Campo requerido']"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field :value="editedItem.descripcion = `${editedItem.parametro} ${editedItem.operador} ${editedItem.valor}`" label="Descripción" disabled></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.verdadero" label="Acción Verdadero" :rules="[v=>!!v||'Campo requerido']"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="editedItem.falso" label="Acción Falso" :rules="[v=>!!v||'Campo requerido']"></v-text-field>
+                    <v-select v-model="editedItem.tipo" :items="['Método', 'Operación']" label="Tipo de acción" :rules="[v=>!!v||'Campo requerido']"></v-select>
                   </v-col>
                 </v-row>
               </v-container>
@@ -86,12 +73,13 @@
 <script lang="ts">
   import Vue from 'vue';
   import {DefaultComputed} from "vue/types/options";
+  import {accion} from "@/store/acciones";
   
-  type accion = {codigo:string; descripcion: string; tipo: 'Método' | 'Operación' }
+  type Accion = {codigo:string; descripcion: string; tipo: 'Método' | 'Operación' }
   type column = { text: string; value: string; align?: string; sortable?: boolean, divider?: boolean }
   export default Vue.extend({
       name: "TablaAcciones",
-      data(): {columns: column[]; elements: accion[]; dialog: boolean; editedIndex: number; editedItem: accion; defaultItem: accion} {
+      data(): {columns: column[]; dialog: boolean; editedIndex: number; editedItem: Accion; defaultItem: Accion} {
           return {
               columns: [
                   { text: 'Codigo', value: 'codigo', align: 'center', sortable: false, divider: true },
@@ -99,7 +87,6 @@
                   { text: 'Tipo', value: 'tipo', align: 'center', sortable: false, divider: true },
                   { text: 'Acción', value: 'acciones', align: 'center', sortable: false, divider: true }
               ],
-              elements: [] as accion[],
               dialog: false,
               editedIndex: -1,
               editedItem: {
@@ -118,7 +105,17 @@
           formTitle: {
               get(): DefaultComputed[string] {
                   return this.editedIndex === -1 ? 'Nueva acción' : 'Editar acción'
-
+              }
+          },
+          elements: {
+              get(): Accion[] {
+                  const acciones: {[p: string]: accion} = this.$store.getters.acciones;
+                  const result: Accion[] = [];
+                  for (const key of Object.keys(acciones)) {
+                      const e = {codigo: key, ...acciones[key]};
+                      result.push(e);
+                  }
+                  return result;
               }
           }
       },
@@ -139,14 +136,15 @@
               this.$store.commit('changeAcciones', this.elements);
               this.close()
           },
-          editItem (item: accion) {
+          editItem (item: Accion) {
               this.editedIndex = this.elements.indexOf(item)
               this.editedItem = Object.assign({}, item)
               this.dialog = true
           },
-          deleteItem (item: accion) {
+          deleteItem (item: Accion) {
               const index = this.elements.indexOf(item)
-              confirm('¿Estás seguro de que deseas eliminar esta acción?') && this.elements.splice(index, 1) && this.$store.commit('changeReglasNegocio', this.elements);
+              console.log(item);
+              confirm('¿Estás seguro de que deseas eliminar esta acción?') && this.elements.splice(index, 1) && this.$store.commit('changeAcciones', this.elements);
           },
       }
   })

@@ -47,7 +47,17 @@ const routes: Array<RouteConfig> = [
     path: '/modulos/acciones',
     name: 'catalogoacciones',
     component: () => import('@/views/CatalogoAcciones.vue')
-  }
+  },
+  {
+    path: '/modulos/protocolos',
+    name: 'catalogoprotocolos',
+    component: () => import('@/views/CatalogoProtocolos.vue')
+  },
+  {
+    path: '/modulos/transacciones',
+    name: 'catalogotransacciones',
+    component: () => import('@/views/CatalogoTransacciones.vue')
+  },
 ]
 
 const router = new VueRouter({
