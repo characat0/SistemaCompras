@@ -190,7 +190,8 @@
           save () {
               this.t[this.nuevaTransaccion.codigo] = { descripcion: this.nuevaTransaccion.descripcion };
               this.$store.commit('changeTransacciones', this.t);
-              this.close()
+              this.close();
+              document.location.reload();
           },
           removeTransaction() {
               delete this.t[this.transaccion];

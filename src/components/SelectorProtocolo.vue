@@ -138,9 +138,15 @@
           getInfo(transacciones: string[]) {
               const rows: {codigo: string; descripcion: string; secuencia: number}[] = []
               for (let i = 0; i < transacciones.length; i++) {
+                  
                   const t = transacciones[i];
                   const tt = this.transacciones[t];
-                  rows.push({ codigo: t, descripcion: tt.descripcion, secuencia: i+1 });
+                  if (!tt) {
+                      transacciones.splice(i, 1);
+                      i--;
+                  } else {
+                      rows.push({ codigo: t, descripcion: tt.descripcion, secuencia: i+1 });
+                  }
               }
               return rows;
           },
