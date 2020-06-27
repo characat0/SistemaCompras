@@ -52,7 +52,7 @@
         </h2>
         <v-container style="min-width: 40vw; max-width: 20em; text-align: justify">
           <p style="text-align: center" class="headline mb-2">
-            Tino Eduardo Reyna Monteverde
+            Dr. Tino Eduardo Reyna Monteverde
           </p>
         </v-container>
       </v-col>
@@ -63,9 +63,23 @@
           Alumnos
         </h2>
         <v-container style="min-width: 40vw; max-width: 20em; text-align: justify">
-          <li>Vela Rodriguez, Marco Antonio <a v-text="`(GitHub)`" href="https://github.com/MarcoVela"/></li><br/>
-          <li>Rojas Asparrin, Anthony Daniel</li><br/>
-          <li>Ginocchio Manutupa, Rosa Angélica</li>
+          <li v-for="alumno in shuffle(alumnos)">
+            {{alumno}}
+          </li>
+        </v-container>
+      </v-col>
+      <v-col
+              class="mb-5"
+              cols="12"
+      >
+        <h2 class="headline font-weight-bold mb-3">
+          Contacto
+        </h2>
+        <v-container style="min-width: 40vw; max-width: 20em; text-align: justify">
+          <v-layout justify-center>
+            <v-btn depressed color="white" style="height: 5em" @click="github"><img src="/img/github.png"></v-btn>
+
+          </v-layout>
         </v-container>
       </v-col>
 
@@ -77,11 +91,29 @@
   import Vue from 'vue';
   export default Vue.extend({
       name: 'Home',
+      data() {
+          return {
+              alumnos: ['Vela Rodriguez, Marco Antonio', 'Rojas Asparrin, Anthony Daniel', 'Ginocchio Manutupa, Rosa Angélica']
+          }
+      },
       methods: {
           reset() {
               localStorage.clear();
               alert("Prototipo reiniciado correctamente!");
               document.location.reload();
+          },
+          shuffle<T>(a: Array<T>) {
+              let j, x, i;
+              for (i = a.length - 1; i > 0; i--) {
+                  j = Math.floor(Math.random() * (i + 1));
+                  x = a[i];
+                  a[i] = a[j];
+                  a[j] = x;
+              }
+              return a;
+          },
+          github() {
+              open('https://github.com/MarcoVela/SistemaCompras', '_blank')
           }
       }
   })
