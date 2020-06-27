@@ -46,7 +46,7 @@
       </v-flex>
     </v-layout>
     <v-divider/>
-    <h3 style="padding-top: 3em; padding-bottom: 0.5em" v-text="`Acciones de la transaccion ${transaccion}`"></h3>
+    <h3 style="padding-top: 3em; padding-bottom: 0.5em" v-text="`Acciones de la transacción ${transaccion}`"></h3>
     <v-layout align-content-space-around justify-center>
       <v-flex>
         <v-data-table :headers="columns" :items="transaccion ? getInfo(accionTransaccion[transaccion]) : []">

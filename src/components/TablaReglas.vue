@@ -128,7 +128,7 @@
       computed: {
           formTitle: {
               get(): DefaultComputed[string] {
-                  return this.editedIndex === -1 ? 'Nueva acción' : 'Editar acción'
+                  return this.editedIndex === -1 ? 'Nueva regla' : 'Editar regla'
               }
           }
       },
