@@ -51,6 +51,12 @@
           <v-list-item-title style="text-align: left">Cat. Reglas</v-list-item-title>
         </v-btn>
       </v-list-item>
+      <v-list-item v-if="logged">
+        <v-btn @click="changeRoute('/modulos/protocolos')" depressed :color="color" block large>
+          <v-icon left>mdi-clipboard-check</v-icon>
+          <v-list-item-title style="text-align: left">Cat. Protocolos</v-list-item-title>
+        </v-btn>
+      </v-list-item>
 
 
     </v-list>
