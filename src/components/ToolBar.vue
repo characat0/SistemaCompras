@@ -39,7 +39,7 @@
       },
       methods: {
           changeRoute(desiredRoute: string) {
-              if (this.$route.fullPath !== `/${desiredRoute}`) {
+              if (this.$route.fullPath !== desiredRoute) {
                   this.$router.push(desiredRoute);
               }
           }

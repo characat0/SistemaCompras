@@ -6,6 +6,7 @@ import {PRODUCT_ROWS, productRows} from "@/store/productos";
 import {accion, acciones, ACCIONES} from "@/store/acciones";
 import {transacciones, TRANSACCIONES } from "@/store/transacciones";
 import {ACCION_TRANSACCION, accionTransaccion} from "@/store/accionTransaccion";
+import {protocoloTransaccion, PROTOCOLO_TRANSACCION} from "@/store/protocoloTransaccion";
 
 const LOGGED = 'LOGGED', NACIONALIDAD = 'NACIONALIDAD';
 
@@ -21,7 +22,8 @@ export default new Vuex.Store({
     reglasNegocio,
     acciones,
     transacciones,
-    accionTransaccion
+    accionTransaccion,
+    protocoloTransaccion
   },
   mutations: {
     logged(state, value) {
@@ -65,6 +67,10 @@ export default new Vuex.Store({
     changeAccionTransaccion(state, value) {
       state.accionTransaccion = value;
       localStorage.setItem(ACCION_TRANSACCION, JSON.stringify(value));
+    },
+    changeProtocoloTransaccion(state, value) {
+      state.protocoloTransaccion = value;
+      localStorage.setItem(PROTOCOLO_TRANSACCION, JSON.stringify(value));
     }
   },
   actions: {
@@ -80,6 +86,7 @@ export default new Vuex.Store({
     reglas: state => state.reglasNegocio,
     acciones: state => state.acciones,
     transacciones: state => state.transacciones,
-    accionTransaccion: state => state.accionTransaccion
+    accionTransaccion: state => state.accionTransaccion,
+    protocoloTransaccion: state => state.protocoloTransaccion
   }
 })
