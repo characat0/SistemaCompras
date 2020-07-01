@@ -162,6 +162,7 @@
               confirm('¿Estás seguro de que deseas eliminar esta regla?') && this.elements.splice(index, 1) && this.$store.commit('changeReglasNegocio', this.elements);
           },
       }
+      
   })
 </script>
 
